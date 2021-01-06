@@ -1,11 +1,11 @@
-package top.jiangyixin.thea.core.match;
+package top.jiangyixin.thea.core.util;
 
 import java.util.Comparator;
 import java.util.Map;
 
 /**
  * Strategy interface for {@code String}-based path matching.
- * <p>The default implementation is {@link com.xxl.sso.core.path.impl.AntPathMatcher}, supporting the Ant-style pattern syntax.		(borrowed from spring)
+ * <p>The default implementation is {@link top.jiangyixin.thea.core.util.AntPathMatcher}, supporting the Ant-style pattern syntax.		(borrowed from spring)
  * @version 1.0
  * @author jiangyixin
  * @date 2021/1/6 下午3:13

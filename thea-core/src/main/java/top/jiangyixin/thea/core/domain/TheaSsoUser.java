@@ -6,5 +6,8 @@ package top.jiangyixin.thea.core.domain;
  * @author jiangyixin
  * @date 2021/1/6 下午3:29
  */
-public class TheaUser {
+public class TheaSsoUser {
+	private String userId;
+	private String username;
+	
 }

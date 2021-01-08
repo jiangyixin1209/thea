@@ -3,36 +3,23 @@ package top.jiangyixin.thea.core.filter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.jiangyixin.thea.core.common.TheaConstant;
-import top.jiangyixin.thea.core.util.AntPathMatcher;
+import top.jiangyixin.thea.core.domain.SsoUser;
+import top.jiangyixin.thea.core.service.SsoWebService;
 import top.jiangyixin.thea.core.util.StringUtils;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * TODO
+ * SsoWebFilter
  * @version 1.0
  * @author jiangyixin
  * @date 2021/1/6 下午2:53
  */
-public class TheaSsoWebFilter extends HttpServlet implements Filter {
-	
+public class TheaSsoWebFilter extends AbstractTheaSsoFilter {
 	private static final Logger logger = LoggerFactory.getLogger(TheaSsoWebFilter.class);
-	
-	private String ssoServer;
-	private String logoutPath;
-	private String excludedPaths;
-	private static final AntPathMatcher antPathMatcher = new AntPathMatcher();
-	
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		ssoServer = filterConfig.getInitParameter(TheaConstant.SSO_SERVER);
-		logoutPath = filterConfig.getInitParameter(TheaConstant.SSO_LOGOUT_PATH);
-		excludedPaths = filterConfig.getInitParameter(TheaConstant.SSO_EXCLUDED_PATHS);
-	}
 	
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
@@ -40,20 +27,45 @@ public class TheaSsoWebFilter extends HttpServlet implements Filter {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		
-		String requestPath = request.getServletPath();
-		if (StringUtils.isNotEmpty(excludedPaths)) {
-			for (String excludedPath : excludedPaths.split(",")) {
-			    String urlPattern = excludedPath.trim();
-			    if (antPathMatcher.match(urlPattern, requestPath)) {
-			    	filterChain.doFilter(request, response);
-			    	return;
-			    }
+		String servletPath = request.getServletPath();
+		
+		// 检查是否为排除验证路径的urlPath
+		if (StringUtils.isNotEmpty(excludedPaths) && isExcludePaths(excludedPaths, servletPath)) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+		
+		// 检查是否当前为登出路径操作
+		if (StringUtils.isNotEmpty(logoutPath) && logoutPath.equals(servletPath)) {
+			SsoWebService.removeSessionIdByCookie(request, response);
+			
+			// 跳转到SSO中心的logout地址
+			String logoutPath = ssoServer.concat(TheaConstant.SSO_LOGOUT);
+			response.sendRedirect(logoutPath);
+			return;
+		}
+		
+		SsoUser ssoUser = SsoWebService.loadUser(request, response);
+		
+		// 非法用户
+		if (ssoUser == null) {
+			String contentType = request.getHeader("content-type");
+			boolean json = contentType != null && contentType.contains("json");
+			if (json) {
+				response.setContentType("application/json;charset=utf-8");
+                response.getWriter().println("{\"code\":500,\"message\":\"SSO未登录\"}");
+                return;
 			}
+			String link = request.getRequestURL().toString();
+			// 跳转到sso中心进行登录
+			String loginPath = ssoServer.concat(TheaConstant.SSO_LOGIN)
+					.concat("?").concat(TheaConstant.REDIRECT_URL).concat("=").concat(link);
+			response.sendRedirect(loginPath);
+			return;
 		}
 		
-		if (StringUtils.isNotEmpty(logoutPath) && logoutPath.equals(requestPath)) {
-		
-		}
-	
+		// 已登录则，设置ssoUser到request
+		request.setAttribute(TheaConstant.SSO_USER, ssoServer);
+		filterChain.doFilter(request, response);
 	}
 }

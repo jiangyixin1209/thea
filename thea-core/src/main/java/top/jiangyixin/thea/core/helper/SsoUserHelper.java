@@ -21,8 +21,8 @@ public class SsoUserHelper {
 		SsoUser ssoUser = SsoLoginStoreHelper.get(userId);
 		if (ssoUser != null) {
 			if (ssoUser.getVersion().equals(version)) {
-				if (System.currentTimeMillis() - ssoUser.getExpireFreshTime() > ssoUser.getExpireMinute()/2) {
-					ssoUser.setExpireFreshTime(System.currentTimeMillis());
+				if (System.currentTimeMillis() - ssoUser.getLastFreshTime() > ssoUser.getExpireMinute()/2) {
+					ssoUser.setLastFreshTime(System.currentTimeMillis());
 					SsoLoginStoreHelper.put(userId, ssoUser);
 				}
 				return ssoUser;
@@ -53,5 +53,9 @@ public class SsoUserHelper {
 	
 	public static String getVersion(String sessionId) {
 		return parseSessionId(sessionId, STORE_VERSION);
+	}
+	
+	public static String makeSessionId(SsoUser user) {
+		return user.getUserId().concat("_").concat(user.getVersion());
 	}
 }

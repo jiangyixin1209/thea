@@ -68,10 +68,6 @@ public class SsoWebService {
 		return null;
 	}
 	
-	public static String makeSessionId(SsoUser user) {
-		return user.getUserId().concat("_").concat(user.getVersion());
-	}
-	
 	/**
 	 * 将Session id 从Cookie中删除
 	 * @param request   request

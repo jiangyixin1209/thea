@@ -14,7 +14,7 @@ public class SsoUser implements Serializable {
 	private String username;
 	private String version;
 	private long expireMinute;
-	private long expireFreshTime;
+	private long lastFreshTime;
 	
 	public String getUserId() {
 		return userId;
@@ -48,12 +48,12 @@ public class SsoUser implements Serializable {
 		this.expireMinute = expireMinute;
 	}
 	
-	public long getExpireFreshTime() {
-		return expireFreshTime;
+	public long getLastFreshTime() {
+		return lastFreshTime;
 	}
 	
-	public void setExpireFreshTime(long expireFreshTime) {
-		this.expireFreshTime = expireFreshTime;
+	public void setLastFreshTime(long expireFreshTime) {
+		this.lastFreshTime = expireFreshTime;
 	}
 	
 	@Override
@@ -63,7 +63,7 @@ public class SsoUser implements Serializable {
 				", username='" + username + '\'' +
 				", version='" + version + '\'' +
 				", expireMinute=" + expireMinute +
-				", expireFreshTime=" + expireFreshTime +
+				", lastFreshTime=" + lastFreshTime +
 				'}';
 	}
 	

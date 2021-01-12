@@ -1,6 +1,5 @@
 package top.jiangyixin.thea.server.service;
 
-import top.jiangyixin.thea.server.pojo.vo.R;
 import top.jiangyixin.thea.server.pojo.dto.UserDTO;
 
 /**

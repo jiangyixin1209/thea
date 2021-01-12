@@ -18,6 +18,9 @@ public class SsoUserHelper {
 	public static SsoUser loadSsoUser(String sessionId) {
 		String userId = parseSessionId(sessionId, STORE_ID);
 		String version = parseSessionId(sessionId, STORE_VERSION);
+		if (userId == null || version == null) {
+			return null;
+		}
 		SsoUser ssoUser = SsoLoginStoreHelper.get(userId);
 		if (ssoUser != null) {
 			if (ssoUser.getVersion().equals(version)) {

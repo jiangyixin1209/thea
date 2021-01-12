@@ -15,7 +15,7 @@
     <div class="login-logo">
         <a><b>XXL</b>SSO</a>
     </div>
-    <form action="${request.contextPath}/doLogin">
+    <form method="post" action="${request.contextPath}/login">
         <div class="login-box-body">
             <p class="login-box-msg">统一认证中心</p>
             <div class="form-group has-feedback">

@@ -2,7 +2,7 @@ package top.jiangyixin.thea.core.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.jiangyixin.thea.core.common.TheaConstant;
+import top.jiangyixin.thea.core.common.SsoConfig;
 import top.jiangyixin.thea.core.domain.SsoUser;
 import top.jiangyixin.thea.core.service.SsoTokenService;
 import top.jiangyixin.thea.core.util.StringUtils;
@@ -18,8 +18,8 @@ import java.io.IOException;
  * @author jiangyixin
  * @date 2021/1/8 下午4:12
  */
-public class TheaSsoTokenFilter extends AbstractTheaSsoFilter {
-	private static final Logger logger = LoggerFactory.getLogger(TheaSsoTokenFilter.class);
+public class SsoTokenFilter extends AbstractSsoFilter {
+	private static final Logger logger = LoggerFactory.getLogger(SsoTokenFilter.class);
 	
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -50,7 +50,7 @@ public class TheaSsoTokenFilter extends AbstractTheaSsoFilter {
 			response.getWriter().println("{\"code\":500,\"message\":\"SSO未登录\"}");
 			return;
 		}
-		request.setAttribute(TheaConstant.SSO_USER, ssoUser);
+		request.setAttribute(SsoConfig.SSO_USER, ssoUser);
 		filterChain.doFilter(request, response);
 	}
 }

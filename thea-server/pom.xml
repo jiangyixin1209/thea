@@ -25,14 +25,24 @@
     </dependencyManagement>
 
     <dependencies>
+
+        <!-- thea-core -->
         <dependency>
             <groupId>top.jiangyixin</groupId>
             <artifactId>thea-core</artifactId>
             <version>${parent.version}</version>
         </dependency>
+
+        <!-- web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- freemarker -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
     </dependencies>
 

@@ -6,7 +6,7 @@ package top.jiangyixin.thea.core.common;
  * @author jiangyixin
  * @date 2021/1/8 上午11:32
  */
-public enum TheaSsoType {
+public enum SsoType {
 	/**
 	 * web类型
 	 */

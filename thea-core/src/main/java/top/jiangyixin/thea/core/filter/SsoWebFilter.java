@@ -2,7 +2,7 @@ package top.jiangyixin.thea.core.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.jiangyixin.thea.core.common.TheaConstant;
+import top.jiangyixin.thea.core.common.SsoConfig;
 import top.jiangyixin.thea.core.domain.SsoUser;
 import top.jiangyixin.thea.core.service.SsoWebService;
 import top.jiangyixin.thea.core.util.StringUtils;
@@ -18,8 +18,8 @@ import java.io.IOException;
  * @author jiangyixin
  * @date 2021/1/6 下午2:53
  */
-public class TheaSsoWebFilter extends AbstractTheaSsoFilter {
-	private static final Logger logger = LoggerFactory.getLogger(TheaSsoWebFilter.class);
+public class SsoWebFilter extends AbstractSsoFilter {
+	private static final Logger logger = LoggerFactory.getLogger(SsoWebFilter.class);
 	
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
@@ -40,7 +40,7 @@ public class TheaSsoWebFilter extends AbstractTheaSsoFilter {
 			SsoWebService.removeSessionIdByCookie(request, response);
 			
 			// 跳转到SSO中心的logout地址
-			String logoutPath = ssoServer.concat(TheaConstant.SSO_LOGOUT);
+			String logoutPath = ssoServer.concat(SsoConfig.SSO_LOGOUT);
 			response.sendRedirect(logoutPath);
 			return;
 		}
@@ -58,14 +58,14 @@ public class TheaSsoWebFilter extends AbstractTheaSsoFilter {
 			}
 			String link = request.getRequestURL().toString();
 			// 跳转到sso中心进行登录
-			String loginPath = ssoServer.concat(TheaConstant.SSO_LOGIN)
-					.concat("?").concat(TheaConstant.REDIRECT_URL).concat("=").concat(link);
+			String loginPath = ssoServer.concat(SsoConfig.SSO_LOGIN)
+					.concat("?").concat(SsoConfig.REDIRECT_URL).concat("=").concat(link);
 			response.sendRedirect(loginPath);
 			return;
 		}
 		
 		// 已登录则，设置ssoUser到request
-		request.setAttribute(TheaConstant.SSO_USER, ssoServer);
+		request.setAttribute(SsoConfig.SSO_USER, ssoServer);
 		filterChain.doFilter(request, response);
 	}
 }

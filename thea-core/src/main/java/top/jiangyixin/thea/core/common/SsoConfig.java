@@ -6,7 +6,7 @@ package top.jiangyixin.thea.core.common;
  * @author jiangyixin
  * @date 2021/1/6 下午2:37
  */
-public class TheaConstant {
+public class SsoConfig {
 	
 	public static final String SSO_SESSION_ID = "sso_session_id";
 	

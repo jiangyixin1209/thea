@@ -1,6 +1,6 @@
 package top.jiangyixin.thea.core.service;
 
-import top.jiangyixin.thea.core.common.TheaConstant;
+import top.jiangyixin.thea.core.common.SsoConfig;
 import top.jiangyixin.thea.core.domain.SsoUser;
 import top.jiangyixin.thea.core.exception.TheaException;
 import top.jiangyixin.thea.core.helper.SsoLoginStoreHelper;
@@ -32,7 +32,7 @@ public class SsoWebService {
 			throw new TheaException("parseSessionId Fail, session: " + sessionId);
 		}
 		SsoLoginStoreHelper.put(userId, ssoUser);
-		CookieUtils.set(response, TheaConstant.SSO_SESSION_ID, sessionId, isRememberMe);
+		CookieUtils.set(response, SsoConfig.SSO_SESSION_ID, sessionId, isRememberMe);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class SsoWebService {
 	 * @param response      response
 	 */
 	public static void logout(HttpServletRequest request, HttpServletResponse response) {
-		String sessionId = CookieUtils.getValue(request, TheaConstant.SSO_SESSION_ID);
+		String sessionId = CookieUtils.getValue(request, SsoConfig.SSO_SESSION_ID);
 		if (sessionId == null) {
 			return;
 		}
@@ -49,20 +49,20 @@ public class SsoWebService {
 		if (userId != null) {
 			SsoLoginStoreHelper.remove(userId);
 		}
-		CookieUtils.remove(request, response, TheaConstant.SSO_SESSION_ID);
+		CookieUtils.remove(request, response, SsoConfig.SSO_SESSION_ID);
 	}
 	
 	public static SsoUser loadUser(HttpServletRequest request, HttpServletResponse response) {
-		String sessionId = CookieUtils.getValue(request, TheaConstant.SSO_SESSION_ID);
+		String sessionId = CookieUtils.getValue(request, SsoConfig.SSO_SESSION_ID);
 		SsoUser ssoUser = SsoUserHelper.loadSsoUser(sessionId);
 		if (ssoUser != null) {
 			return ssoUser;
 		}
 		removeSessionIdByCookie(request, response);
-		String paramSessionId = request.getParameter(TheaConstant.SSO_SESSION_ID);
+		String paramSessionId = request.getParameter(SsoConfig.SSO_SESSION_ID);
 		ssoUser = SsoUserHelper.loadSsoUser(paramSessionId);
 		if (ssoUser != null) {
-			CookieUtils.set(response, TheaConstant.SSO_SESSION_ID, paramSessionId, false);
+			CookieUtils.set(response, SsoConfig.SSO_SESSION_ID, paramSessionId, false);
 			return ssoUser;
 		}
 		return null;
@@ -74,11 +74,11 @@ public class SsoWebService {
 	 * @param response  response
 	 */
 	public static void removeSessionIdByCookie(HttpServletRequest request, HttpServletResponse response) {
-		CookieUtils.remove(request, response, TheaConstant.SSO_SESSION_ID);
+		CookieUtils.remove(request, response, SsoConfig.SSO_SESSION_ID);
 	}
 	
 	public static String getSessionIdByCookie(HttpServletRequest request) {
-		return CookieUtils.getValue(request, TheaConstant.SSO_SESSION_ID);
+		return CookieUtils.getValue(request, SsoConfig.SSO_SESSION_ID);
 	}
 	
 }

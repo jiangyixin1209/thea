@@ -19,5 +19,5 @@ public interface UserService {
 	 * @param password  密码
 	 * @return  UserDTO
 	 */
-	R<UserDTO> loadUser(String username, String password);
+	UserDTO loadUser(String username, String password);
 }

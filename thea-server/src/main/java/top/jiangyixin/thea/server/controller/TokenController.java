@@ -29,11 +29,10 @@ public class TokenController {
 	
 	@PostMapping("/login")
 	public R<String> login(String username, String password) {
-		R<UserDTO> result = userService.loadUser(username, password);
-		if (result.getCode() != R.SUCCESS_CODE) {
-			return R.fail(result.getMessage());
+		UserDTO userDTO = userService.loadUser(username, password);
+		if (userDTO == null) {
+			return R.fail("SSO未登录");
 		}
-		UserDTO userDTO = result.getData();
 		SsoUser ssoUser = new SsoUser();
 		ssoUser.setUserId(String.valueOf(userDTO.getUserId()));
 		ssoUser.setUsername(userDTO.getUsername());

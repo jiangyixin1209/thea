@@ -2,7 +2,7 @@ package top.jiangyixin.thea.core.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.jiangyixin.thea.core.common.TheaConstant;
+import top.jiangyixin.thea.core.common.SsoConfig;
 import top.jiangyixin.thea.core.util.AntPathMatcher;
 import top.jiangyixin.thea.core.util.StringUtils;
 
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServlet;
  * @author jiangyixin
  * @date 2021/1/8 下午4:20
  */
-public abstract class AbstractTheaSsoFilter extends HttpServlet implements Filter {
-	private static final Logger logger = LoggerFactory.getLogger(AbstractTheaSsoFilter.class);
+public abstract class AbstractSsoFilter extends HttpServlet implements Filter {
+	private static final Logger logger = LoggerFactory.getLogger(AbstractSsoFilter.class);
 	
 	protected String ssoServer;
 	protected String logoutPath;
@@ -28,9 +28,9 @@ public abstract class AbstractTheaSsoFilter extends HttpServlet implements Filte
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		ssoServer = filterConfig.getInitParameter(TheaConstant.SSO_SERVER);
-		logoutPath = filterConfig.getInitParameter(TheaConstant.SSO_LOGOUT_PATH);
-		excludedPaths = filterConfig.getInitParameter(TheaConstant.SSO_EXCLUDED_PATHS);
+		ssoServer = filterConfig.getInitParameter(SsoConfig.SSO_SERVER);
+		logoutPath = filterConfig.getInitParameter(SsoConfig.SSO_LOGOUT_PATH);
+		excludedPaths = filterConfig.getInitParameter(SsoConfig.SSO_EXCLUDED_PATHS);
         logger.info("{} init success!", this.getClass().getName());
 	}
 	

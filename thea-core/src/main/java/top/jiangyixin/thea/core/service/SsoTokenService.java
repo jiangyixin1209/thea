@@ -1,6 +1,6 @@
 package top.jiangyixin.thea.core.service;
 
-import top.jiangyixin.thea.core.common.TheaConstant;
+import top.jiangyixin.thea.core.common.SsoConfig;
 import top.jiangyixin.thea.core.domain.SsoUser;
 import top.jiangyixin.thea.core.exception.TheaException;
 import top.jiangyixin.thea.core.helper.SsoLoginStoreHelper;
@@ -33,7 +33,7 @@ public class SsoTokenService {
 	}
 	
 	public static void logout(HttpServletRequest request) {
-		String sessionId = request.getHeader(TheaConstant.SSO_SESSION_ID);
+		String sessionId = request.getHeader(SsoConfig.SSO_SESSION_ID);
 		logout(sessionId);
 	}
 	
@@ -42,7 +42,7 @@ public class SsoTokenService {
 	}
 	
 	public static SsoUser loadUser(HttpServletRequest request) {
-		String sessionId = request.getHeader(TheaConstant.SSO_SESSION_ID);
+		String sessionId = request.getHeader(SsoConfig.SSO_SESSION_ID);
 		return loadUser(sessionId);
 	}
 }

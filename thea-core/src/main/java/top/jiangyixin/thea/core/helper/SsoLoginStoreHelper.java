@@ -2,7 +2,7 @@ package top.jiangyixin.thea.core.helper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.jiangyixin.thea.core.common.TheaConstant;
+import top.jiangyixin.thea.core.common.SsoConfig;
 import top.jiangyixin.thea.core.domain.SsoUser;
 import top.jiangyixin.thea.core.util.JedisUtils;
 
@@ -32,7 +32,7 @@ public class SsoLoginStoreHelper {
 	 * @return  Redis Key
 	 */
 	private static String redisKey(String sessionId) {
-		return TheaConstant.SSO_SESSION_ID.concat("#").concat(sessionId);
+		return SsoConfig.SSO_SESSION_ID.concat("#").concat(sessionId);
 	}
 	
 	/**

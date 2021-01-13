@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>统一认证中心</title>
+    <title>Thea SSO 统一认证中心</title>
 
     <#import "common/common.macro.ftl" as netCommon>
     <@netCommon.commonStyle />
@@ -16,25 +16,19 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>使用教程</h1>
-        </section>
-
         <!-- Main content -->
         <section class="content">
-            <div class="callout callout-info">
-                <h4>分布式单点登录框架</h4>
-                <br>
-                <p>
+            <div>
+                <h2 style="text-align: center;">
+                    Thea分布式单点登录框架
+                </h2>
+                <h3 style="text-align: center">
                     <a target="_blank" href="https://github.com/xuxueli/xxl-sso">Github</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <iframe src="https://ghbtns.com/github-btn.html?user=xuxueli&repo=xxl-sso&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px" style="margin-bottom:-5px;"></iframe>
-                    <br><br>
-                    <a target="_blank" href="https://www.xuxueli.com/xxl-sso/">文档地址</a>
-                    <br><br>
-
-                </p>
-                <p></p>
+                </h3>
+                <h4 style="text-align: center">
+                    <iframe src="https://ghbtns.com/github-btn.html?user=jiangyixin1209&repo=thea&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px" style="margin-bottom:-5px;"></iframe>
+                </h4>
+                <br>
             </div>
         </section>
         <!-- /.content -->

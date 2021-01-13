@@ -49,8 +49,8 @@
 <#macro commonHeader>
     <header class="main-header">
         <a href="${request.contextPath}/" class="logo">
-            <span class="logo-mini"><b>XXL</b></span>
-            <span class="logo-lg"><b>XXL SSO</b></span>
+            <span class="logo-mini"><b>Thea</b></span>
+            <span class="logo-lg"><b>Thea SSO</b></span>
         </a>
         <nav class="navbar navbar-static-top" role="navigation">
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"><span class="sr-only">切换导航</span></a>
@@ -84,12 +84,10 @@
 
 <#macro commonFooter >
     <footer class="main-footer">
-        Powered by <b>XXL-SSO</b> 1.1.1-SNAPSHOT
+        Powered by <b>Thea</b> 1.0.0-SNAPSHOT
         <div class="pull-right hidden-xs">
-            <strong>Copyright &copy; 2018-${.now?string('yyyy')} &nbsp;
-                <a href="https://www.xuxueli.com/" target="_blank" >xuxueli</a>
-                &nbsp;
-                <a href="https://github.com/xuxueli/xxl-sso" target="_blank" >github</a>
+            <strong>Copyright &copy; 2020-${.now?string('yyyy')} &nbsp;
+                <a href="https://github.com/jiangyixin1209/thea" target="_blank" >github</a>
             </strong><!-- All rights reserved. -->
         </div>
     </footer>

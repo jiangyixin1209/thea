@@ -70,7 +70,7 @@ public class WebController {
 		}
 		SsoUser ssoUser = new SsoUser();
 		ssoUser.setUserId(String.valueOf(userDTO.getUserId()));
-		ssoUser.setUsername(ssoUser.getUsername());
+		ssoUser.setUsername(userDTO.getUsername());
 		ssoUser.setVersion(UUID.randomUUID().toString().replaceAll("-", ""));
 		ssoUser.setExpireMinute(SsoLoginStoreHelper.getRedisExpireMinute());
 		ssoUser.setLastFreshTime(System.currentTimeMillis());

@@ -13,7 +13,7 @@ import top.jiangyixin.thea.core.util.JedisUtils;
  * @date 2021/1/8 下午5:01
  */
 @Configuration
-public class TheaSsoConfig implements InitializingBean, DisposableBean {
+public class TheaServerConfig implements InitializingBean, DisposableBean {
 	
 	@Value("${thea.sso.redis.address}")
 	private String redisAddress;

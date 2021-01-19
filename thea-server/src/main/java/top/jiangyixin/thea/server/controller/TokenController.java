@@ -7,7 +7,7 @@ import top.jiangyixin.thea.core.domain.SsoUser;
 import top.jiangyixin.thea.core.helper.SsoLoginStoreHelper;
 import top.jiangyixin.thea.core.helper.SsoUserHelper;
 import top.jiangyixin.thea.core.service.SsoTokenService;
-import top.jiangyixin.thea.server.pojo.vo.R;
+import top.jiangyixin.thea.server.pojo.vo.ApiResponse;
 import top.jiangyixin.thea.server.pojo.dto.UserDTO;
 import top.jiangyixin.thea.server.service.UserService;
 
@@ -28,10 +28,10 @@ public class TokenController {
 	private UserService userService;
 	
 	@PostMapping("/login")
-	public R<String> login(String username, String password) {
+	public ApiResponse<String> login(String username, String password) {
 		UserDTO userDTO = userService.loadUser(username, password);
 		if (userDTO == null) {
-			return R.fail("SSO未登录");
+			return ApiResponse.fail("SSO未登录");
 		}
 		SsoUser ssoUser = new SsoUser();
 		ssoUser.setUserId(String.valueOf(userDTO.getUserId()));
@@ -42,22 +42,22 @@ public class TokenController {
 		
 		String sessionId = SsoUserHelper.makeSessionId(ssoUser);
 		SsoTokenService.login(sessionId, ssoUser);
-		return new R<>(R.SUCCESS_CODE, sessionId);
+		return new ApiResponse<>(ApiResponse.SUCCESS_CODE, sessionId);
 	}
 	
 	@PostMapping("/logout")
-	public R<String> logout(String sessionId) {
+	public ApiResponse<String> logout(String sessionId) {
 		SsoTokenService.logout(sessionId);
-		return R.success();
+		return ApiResponse.success();
 	}
 	
 	@PostMapping("/loadUser")
-	public R<SsoUser> loadUser(String sessionId) {
+	public ApiResponse<SsoUser> loadUser(String sessionId) {
 		SsoUser ssoUser = SsoTokenService.loadUser(sessionId);
 		if (ssoUser == null) {
-			return new R<>(R.ERROR_CODE, "SSO未登录");
+			return new ApiResponse<>(ApiResponse.ERROR_CODE, "SSO未登录");
 		}
-		return new R<>(R.SUCCESS_CODE, ssoUser);
+		return new ApiResponse<>(ApiResponse.SUCCESS_CODE, ssoUser);
 	}
 	
 }

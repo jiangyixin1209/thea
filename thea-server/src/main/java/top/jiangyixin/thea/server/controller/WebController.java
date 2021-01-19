@@ -42,7 +42,7 @@ public class WebController {
 	}
 	
 	@GetMapping("/login")
-	public String login(HttpServletRequest request, HttpServletResponse response) {
+	public String login(Model model, HttpServletRequest request, HttpServletResponse response) {
 		SsoUser ssoUser = SsoWebService.loadUser(request, response);
 		if (ssoUser != null) {
 			String redirectUrl = request.getParameter(SsoConfig.REDIRECT_URL);
@@ -56,6 +56,7 @@ public class WebController {
 				return "redirect:/";
 			}
 		}
+		model.addAttribute(SsoConfig.REDIRECT_URL, request.getParameter(SsoConfig.REDIRECT_URL));
 		return "login";
 		
 	}

@@ -9,7 +9,7 @@ import top.jiangyixin.thea.core.common.SsoConfig;
 import top.jiangyixin.thea.core.filter.SsoWebFilter;
 
 /**
- * TODO
+ * Thea SSO 配置
  * @version 1.0
  * @author jiangyixin
  * @date 2021/1/14 上午11:14

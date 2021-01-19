@@ -1,0 +1,23 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /thea-sso-web-sample
+spring:
+  mvc:
+    servlet:
+      load-on-startup: 0
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+  freemarker:
+    template-loader-path: classpath:/templates/
+    suffix: .ftl
+    charset: UTF-8
+    request-context-attribute: request
+
+thea:
+  sso:
+    server: http://server.thea.com:8080/thea-sso-server
+    redis-address: redis://127.0.0.1:6379
+    excluded-path:
+    logout-path: /logout

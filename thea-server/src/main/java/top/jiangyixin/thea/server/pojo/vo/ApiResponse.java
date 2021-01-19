@@ -6,7 +6,7 @@ package top.jiangyixin.thea.server.pojo.vo;
  * @author jiangyixin
  * @date 2020/12/23 上午11:47
  */
-public class R<T> {
+public class ApiResponse<T> {
 	
 	public final static int SUCCESS_CODE = 200;
 	public final static int ERROR_CODE = 500;
@@ -15,39 +15,39 @@ public class R<T> {
 	private String message;
 	private T data;
 	
-	public R() {
+	public ApiResponse() {
 	}
 	
-	public R(int code, T data) {
+	public ApiResponse(int code, T data) {
 		this.code = code;
 		this.data = data;
 	}
 	
-	public R(int code, String message) {
+	public ApiResponse(int code, String message) {
 		this.code = code;
 		this.message = message;
 	}
 	
-	public R(int code, String message, T data) {
+	public ApiResponse(int code, String message, T data) {
 		this.code = code;
 		this.message = message;
 		this.data = data;
 	}
 	
-	public static R<String> success() {
-		return new R<>(SUCCESS_CODE, "操作成功");
+	public static ApiResponse<String> success() {
+		return new ApiResponse<>(SUCCESS_CODE, "操作成功");
 	}
 	
-	public static R<String> success(String message) {
-		return new R<>(SUCCESS_CODE, message);
+	public static ApiResponse<String> success(String message) {
+		return new ApiResponse<>(SUCCESS_CODE, message);
 	}
 	
-	public static R<String> fail() {
-		return new R<>(ERROR_CODE, null);
+	public static ApiResponse<String> fail() {
+		return new ApiResponse<>(ERROR_CODE, null);
 	}
 	
-	public static R<String> fail(String message) {
-		return new R<>(ERROR_CODE, message);
+	public static ApiResponse<String> fail(String message) {
+		return new ApiResponse<>(ERROR_CODE, message);
 	}
 	
 	public int getCode() {

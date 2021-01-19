@@ -65,7 +65,7 @@ public class SsoWebFilter extends AbstractSsoFilter {
 		}
 		
 		// 已登录则，设置ssoUser到request
-		request.setAttribute(SsoConfig.SSO_USER, ssoServer);
+		request.setAttribute(SsoConfig.SSO_USER, ssoUser);
 		filterChain.doFilter(request, response);
 	}
 }
